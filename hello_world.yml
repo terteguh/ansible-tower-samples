@@ -1,5 +1,5 @@
 - name: Hello World Sample
-  hosts: 192.168.0.12
+  hosts: "{{ vm_networks_ip }}"
   tasks:
     - name: Hello Message
       debug:
@@ -8,11 +8,11 @@
     - name: Create Report Check Parameter
       template:
         src: index.html.j2
-        dest: /tmp/192.168.0.12.html
+        dest: "/tmp/{{ vm_networks_ip }}.html"
     - name: Fetch Report Check Parameter
       fetch:
-        src: /tmp/192.168.0.12.html
-        dest: /tmp/192.168.0.12.html
+        src: "/tmp/{{ vm_networks_ip }}.html"
+        dest: "/tmp/{{ vm_networks_ip }}.html"
         flat: yes
 
 - name: fetch to 192.168.0.11
@@ -20,5 +20,5 @@
   tasks:
     - name: Fetch Report Check Parameter
       copy:
-        src: /tmp/192.168.0.12.html
+        src: "/tmp/{{ vm_networks_ip }}.html"
         dest: /var/www/html/
