@@ -12,7 +12,7 @@
     - name: Fetch Report Check Parameter
       fetch:
         src: /tmp/index.html
-        dest: /tmp
+        dest: /tmp/index.html
         flat: yes
 
 - name: fetch to 192.168.0.12
