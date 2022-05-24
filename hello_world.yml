@@ -1,5 +1,5 @@
 - name: Hello World Sample
-  hosts: all
+  hosts: 192.168.0.11
   tasks:
     - name: Hello Message
       debug:
@@ -10,3 +10,10 @@
         src: index.html.j2
         dest: /tmp/index.html
 
+- name: fetch to 192.168.0.12
+  hosts: 192.168.0.12
+  tasks:
+    - name: Fetch Report Check Parameter
+      copy:
+        src: /tmp/index.html
+        dest: /var/www/html/
