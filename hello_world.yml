@@ -5,18 +5,13 @@
       debug:
         msg: "Hello World!"
 
-
-    - name: Create host record in Infoblox
-      ansible.builtin.infoblox_nios_host_record:
-        name: "host.example.com"
-        ipv4addr: "192.168.1.10"
-        state: "present"
-        view: "default"
+    - name: Configure an A record
+      infoblox.nios_modules.nios_a_record:
+        name: a.ansible.com
+        ipv4: 192.168.10.1
+        state: present
         provider:
-          host: "infoblox-server.example.com"
-          username: "your-username"
-          password: "your-password"
-          ssl_verify: False
-        ttl: 3600
-        extattrs: null
-        comment: "Created via Ansible"
+          host: "{{ inventory_hostname_short }}"
+          username: admin
+          password: admin
+      connection: local
