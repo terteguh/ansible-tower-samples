@@ -1,24 +1,13 @@
 - name: Hello World Sample
-  hosts: "{{ vm_networks_ip }}"
+  hosts: localhost
   tasks:
     - name: Hello Message
       debug:
         msg: "Hello World!"
 
-    - name: Create Report Check Parameter
-      template:
-        src: index.html.j2
-        dest: "/tmp/{{ vm_networks_ip }}.html"
-    - name: Fetch Report Check Parameter
-      fetch:
-        src: "/tmp/{{ vm_networks_ip }}.html"
-        dest: "/tmp/{{ vm_networks_ip }}.html"
-        flat: yes
+    - name: Create a DNS A record
+      infoblox.nios_modules.nios_a_record:
+        name: "host.example.com"
+        ipv4addr: "192.168.1.10"
+        state: "present"
 
-- name: fetch to 192.168.0.11
-  hosts: 192.168.0.11
-  tasks:
-    - name: Fetch Report Check Parameter
-      copy:
-        src: "/tmp/{{ vm_networks_ip }}.html"
-        dest: /var/www/html/
